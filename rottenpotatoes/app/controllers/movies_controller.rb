@@ -6,13 +6,6 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
 
-  def same_director
-    @movies = Movie.same_director params[:id]
-    if @movies.count == 0
-      flash[:notice] = "'#{Movie.find(params[:id]).title}' has no director info"
-      redirect_to movies_path
-    end
-  end
 
   def index
     sort = params[:sort] || session[:sort]
@@ -46,6 +39,14 @@ class MoviesController < ApplicationController
 
   def new
     # default: render 'new' template
+  end
+
+  def same_director
+    @movies = Movie.same_director params[:id]
+    if @movies.count == 0
+      flash[:notice] = "'#{Movie.find(params[:id]).title}' has no director info"
+      redirect_to movies_path
+    end
   end
 
   def create
